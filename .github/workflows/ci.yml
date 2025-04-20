@@ -37,6 +37,7 @@ jobs:
     - name: Run backend tests
       run: |
         source venv/bin/activate
+        export PYTHONPATH=$PWD
         pytest backend/tests
 
     - name: Install frontend dependencies
