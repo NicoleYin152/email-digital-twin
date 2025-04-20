@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from "react";
+import React, { useRef, useState, ChangeEvent, FormEvent } from "react";
 import axios from "axios";
 
 const UploadForm: React.FC = () => {
@@ -15,6 +15,8 @@ const UploadForm: React.FC = () => {
     setFeedback(msg);
     setTimeout(() => setFeedback(""), 2000);
   };
+  const pdfInputRef = useRef<HTMLInputElement | null>(null);
+  const emailInputRef = useRef<HTMLInputElement | null>(null);
   const [summarizing, setSummarizing] = useState<boolean>(false);
   const [summaryOutput, setSummaryOutput] = useState<string>("");
   const [pdfPreview, setPdfPreview] = useState<string>("");
@@ -22,10 +24,8 @@ const UploadForm: React.FC = () => {
   const [strategy, setStrategy] = useState<string>("Standard");
   const strategies = [
     "Standard",
-    "Summarize PDF before replying",
     "Concise reply",
-    "Elaborate reply",
-    "Use email only (ignore PDF)"
+    "Elaborate reply"
   ];
   const [chatHistory, setChatHistory] = useState<{ user: string; bot: string }[]>([]);
   const [followupPrompt, setFollowupPrompt] = useState<string>("");
@@ -56,8 +56,8 @@ const UploadForm: React.FC = () => {
           window.scrollTo({ top: 0, behavior: "smooth" });
         }, 300);
       }
-      
-      
+
+
     } catch (err: any) {
       console.error("Error:", err);
       if (axios.isAxiosError(err) && err.response?.status === 429) {
@@ -89,32 +89,33 @@ const UploadForm: React.FC = () => {
   ) => (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-  
+
     // Check file type
     const allowedTypes = ["application/pdf", "text/plain", "message/rfc822"];
     if (!allowedTypes.includes(file.type)) {
       showFeedback("Unsupported file type.");
       return;
     }
-  
+
     // Optional: Limit size to 5MB
     if (file.size > 5 * 1024 * 1024) {
       showFeedback("File too large (max 5MB).");
       return;
     }
-  
+
     setter(file);
     setName(file.name);
     fetchPreview(file, setPreview);
+    setChatHistory([]);
   };
-  
+
 
   const handleFollowup = async () => {
     if (!followupPrompt.trim()) {
       showFeedback("Please enter a follow-up prompt.");
       return;
     }
-    
+
     setIsFollowupLoading(true);
     try {
       const res = await axios.post<{ reply: string }>("http://127.0.0.1:8000/followup-reply", {
@@ -149,6 +150,7 @@ const UploadForm: React.FC = () => {
           <div>
             <label className="block font-semibold mb-1">Upload PDF Attachment</label>
             <input
+              ref={pdfInputRef}
               type="file"
               accept="application/pdf"
               onChange={handleFileChange(setPdfFile, setPdfName, setPdfPreview)}
@@ -161,6 +163,9 @@ const UploadForm: React.FC = () => {
                 setPdfFile(null);
                 setPdfName("");
                 setPdfPreview("");
+                if (pdfInputRef.current) {
+                  pdfInputRef.current.value = "";
+                }
               }}
               className="text-red-500 hover:underline"
             >
@@ -170,6 +175,7 @@ const UploadForm: React.FC = () => {
           <div>
             <label className="block font-semibold mb-1">Upload Email Thread (TXT or EML)</label>
             <input
+              ref={emailInputRef}
               type="file"
               accept=".txt,.eml"
               onChange={handleFileChange(setEmailFile, setEmailName, setEmailPreview)}
@@ -182,6 +188,9 @@ const UploadForm: React.FC = () => {
                 setEmailFile(null);
                 setEmailName("");
                 setEmailPreview("");
+                if (emailInputRef.current) {
+                  emailInputRef.current.value = "";
+                }
               }}
               className="text-red-500 hover:underline"
             >
@@ -219,6 +228,8 @@ const UploadForm: React.FC = () => {
                   setSummaryOutput("");
                   setResponse("");
                   setFeedback("");
+                  if (pdfInputRef.current) pdfInputRef.current.value = "";
+                  if (emailInputRef.current) emailInputRef.current.value = "";
                 }}
                 className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
               >
@@ -353,10 +364,6 @@ const UploadForm: React.FC = () => {
               )}
               {response && (
                 <div className="mt-6">
-                  <h2 className="text-2xl font-semibold mb-4">Generated Reply:</h2>
-                  <div className="bg-gray-100 p-6 rounded-lg border whitespace-pre-wrap text-gray-800">
-                    {response}
-                  </div>
 
                   {/* Follow-up prompt box */}
                   <div className="mt-4 space-y-2">
