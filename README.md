@@ -136,6 +136,26 @@ This tool targets busy professionals, customer success teams, and executives who
   - Deploy via managed Kubernetes (GKE/EKS) or use Render/Heroku for simpler deployment
   - Add TLS + domain with Ingress
 
+### 🛠️ **Deployment Strategy (AWS Production Plan)**
+
+To deploy this email-reply generation platform reliably at scale, the following AWS services are recommended:
+
+| Need                          | AWS Service                                           | Purpose                                                                 |
+|-------------------------------|--------------------------------------------------------|-------------------------------------------------------------------------|
+| **Compute**                   | `Amazon ECS` (Fargate) or `Amazon EKS`                | Container orchestration (Docker Compose → ECS or Kubernetes → EKS)     |
+| **API Hosting**               | `AWS API Gateway` + `Lambda` _(serverless alt)_       | For handling lightweight inference and routing via RESTful endpoints    |
+| **Static Frontend Hosting**   | `Amazon S3` + `CloudFront`                            | Distribute Vite-built frontend globally with CDN & caching              |
+| **Environment Secrets**       | `AWS Secrets Manager`                                 | Securely store and rotate the OpenAI API key                           |
+| **CI/CD Pipeline**            | `AWS CodePipeline` + `CodeBuild`                      | Automate testing, image builds, and deployments                        |
+| **Logging & Monitoring**      | `Amazon CloudWatch`                                   | Aggregate logs from FastAPI backend and monitor container health       |
+| **Custom Domain & HTTPS**     | `Amazon Route 53` + `ACM` (SSL Certs)                 | Custom DNS + secure HTTPS endpoints                                    |
+| **File Storage (Optional)**   | `Amazon S3` (if persisting uploaded files later)      | Currently files are processed in-memory, but this enables durability   |
+| **Future Add-ons**            | `Amazon Bedrock`, `SageMaker`, `Aurora`, `DynamoDB`   | For integrating custom LLMs, user auth, stateful memory, RAG, etc.     |
+
+> ⚙️ This stack enables a production-ready system with full scalability, secure API management, and seamless frontend/backend integration.
+
+---
+
 ### 🧠 LLM / Agent Usage: Current vs Future
 - **Current**: Single-agent OpenAI GPT-3.5 integration for summarization and email generation.
 - **Future**:
