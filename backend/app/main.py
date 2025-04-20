@@ -16,10 +16,10 @@ from slowapi.errors import RateLimitExceeded
 from typing import Optional
 
 # uncomment when using the test
-from app.parser import extract_texts
-from app.responder import generate_reply
-from app.parser import extract_texts
-from app.responder import client
+from .parser import extract_texts
+from .responder import generate_reply
+from .parser import extract_texts
+from .responder import client
 
 
 app = FastAPI()
