@@ -107,6 +107,48 @@ npm test
 
 ---
 
+## 📊 Architecture / Ops Notes
+
+### 🎯 Market Insight
+This tool targets busy professionals, customer success teams, and executives who frequently manage large volumes of client communications. The need arises from the time-consuming nature of writing personalized, tone-appropriate replies, especially when emails reference lengthy attached documents.
+
+### 📈 Scalability Plan
+- **Horizontal Scaling**: The backend can scale via Docker containers and Kubernetes replicas. Stateless APIs make it easy to deploy across multiple nodes.
+- **Async Tasks**: Heavy inference operations (like OpenAI requests) can be offloaded to background tasks via `async`/`await`, and further optimized with a task queue system like Celery + Redis for future enhancements.
+- **Caching**: Strategy can include memoization or Redis to cache repeated summary or email generation requests.
+
+### 🔐 Privacy & Security Choices
+- **No storage**: Uploaded files are read in-memory and not persisted.
+- **Environment secrets**: OpenAI API key is stored in a `.env` file, excluded from version control.
+- **CORS & HTTPS**: CORS is configured in FastAPI, and production deployment would use HTTPS termination via a secure ingress controller or cloud proxy.
+- **Clear all / manual removal**: Users can clear all files and previews locally, ensuring they control what stays in session.
+
+### ⚡ Latency (Inference + OpenAI API)
+- **PDF and email summary**: ~2–3 seconds per file using GPT-3.5-turbo on average.
+- **Reply generation**: ~2–4 seconds, depending on prompt complexity and selected strategy.
+- **Cost consideration**: Estimated ~0.2¢–0.4¢ per full prompt/response interaction using gpt-3.5-turbo-16k.
+
+### 🚧 Deployment Hurdles + Next Steps
+- **Kubernetes**: Attempted Minikube deployment, but faced image pull and port tunneling issues due to system constraints on macOS.
+- **Fallback**: Docker Compose runs the full stack locally.
+- **Next steps**:
+  - Push working Docker images to a registry (e.g., Docker Hub)
+  - Deploy via managed Kubernetes (GKE/EKS) or use Render/Heroku for simpler deployment
+  - Add TLS + domain with Ingress
+
+### 🧠 LLM / Agent Usage: Current vs Future
+- **Current**: Single-agent OpenAI GPT-3.5 integration for summarization and email generation.
+- **Future**:
+  - **LangChain router**: Direct task-based routing (e.g., classify tone request, then select summarizer or rewriter agent).
+  - **RAG**: Retrieve relevant knowledge base entries (e.g., past emails or company docs) for context injection.
+  - **Long-term memory**: Store past conversations securely for continuity.
+  - **Multimodal input**: Add voice-to-text and calendar integration for smart scheduling replies.
+
+### Youtube Link For Working Demo:
+- https://youtu.be/tdG7xgrHexE
+
+---
+
 ## 🐳 Docker Build
 
 ### Build Images Locally
