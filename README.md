@@ -133,7 +133,7 @@ CI config: `.github/workflows/ci.yml`
 
 While the app is fully containerized and ready for deployment:
 
-🚫 I chose to stop right before deployment due to system constraints with Docker Desktop and Kubernetes on macOS.
+🚫 Deployment still needs some work.
 
 📄 Docker images build successfully  
 🔄 CI/CD passes consistently  
