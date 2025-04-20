@@ -1,1 +1,19 @@
+# Python
 venv
+__pycache__/
+*.py[cod]
+*.log
+
+# Node
+node_modules
+npm-debug.log*
+.env
+
+# Tests & coverage
+coverage/
+dist/
+*.cover
+*.pyc
+
+# VS Code
+.vscode/

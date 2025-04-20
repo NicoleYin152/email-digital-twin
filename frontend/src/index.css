@@ -16,6 +16,19 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.custom-bg {
+  background-image: url('/background.jpg'); /* or any image you like in public/ */
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+}
+
+
+
 
 a {
   font-weight: 500;

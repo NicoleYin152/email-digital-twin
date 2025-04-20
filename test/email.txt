@@ -1,0 +1,10 @@
+From: investor@example.com
+To: team@easeverticalai.com
+Subject: Follow-up on Q2 Report
+
+Hi team,
+
+Thanks for the previous update. Can you please confirm if section 3.2 includes the revised projections from last week?
+
+Best,
+Investor
