@@ -8,6 +8,7 @@ __pycache__/
 node_modules
 npm-debug.log*
 .env
+frontend/dist/
 
 # Tests & coverage
 coverage/
