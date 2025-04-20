@@ -1,0 +1,49 @@
+From: investor@venturecapital.com
+To: finance_team@easeverticalai.com
+Subject: Follow-up: Q2 Financial Report and Projected Revenue Streams
+
+Hi team,
+
+Thank you for sending over the initial draft of the Q2 financial report. I’ve had a chance to review it, and I appreciate the effort that went into preparing the document. I do, however, have several questions and suggestions that I hope we can discuss further:
+
+1. In section 2.1, you reference new client acquisitions but there isn’t a breakdown by industry or region. Could you provide more detail on where the majority of these clients are coming from and whether there are any noticeable trends?
+2. The R&D expenditures in section 2.4 have increased by 18% compared to Q1. While I understand we are investing heavily in AI-driven initiatives, can you clarify which projects or teams were the primary beneficiaries of this increased budget?
+3. Section 3.2 outlines the revenue projections for the next two quarters. Can you elaborate on the assumptions behind the projected 35% growth, particularly in light of current market volatility?
+4. I noticed that the appendix includes a table of key hires and departures, but it might be helpful to add brief bios or backgrounds for new leadership, especially those impacting product strategy.
+5. Lastly, I would appreciate a summary of the main risks or challenges the company anticipates in the upcoming quarters, and how you plan to mitigate them.
+
+Please let me know if you need any clarification on the above points. I look forward to your response and am happy to schedule a call to discuss further if needed.
+
+Best regards,  
+Morgan Lee  
+Venture Capital Investments
+
+---
+
+From: emily.chen@easeverticalai.com  
+To: investor@venturecapital.com  
+Subject: Re: Follow-up: Q2 Financial Report and Projected Revenue Streams
+
+Hi Morgan,
+
+Thank you for your thoughtful feedback and for highlighting these important areas. I’ll work with our finance and HR teams to gather more information and ensure we provide detailed responses to each of your points.
+
+In the meantime, please find attached a revised version of the report, which includes additional commentary in section 2.4 and updated revenue models in section 3.2. We’ve also started drafting leadership bios for inclusion in the final version.  
+
+We’ll get back to you shortly with the rest of the requested data.
+
+Best,  
+Emily
+
+---
+
+From: investor@venturecapital.com  
+To: emily.chen@easeverticalai.com  
+Subject: Re: Follow-up: Q2 Financial Report and Projected Revenue Streams
+
+Thanks for the quick turnaround, Emily. The added context on R&D and updated models are very helpful.  
+
+Looking forward to the additional info on client acquisition trends and risk mitigation plans.
+
+Best,  
+Morgan
